@@ -1,8 +1,14 @@
 <!doctype html>
+<!--
+  練習アプリの画面。Redux の構成要素でいうと View にあたる。
+  ここには見た目と部品の置き場所だけを書き、動きは src/main.js が担当する。
+  id="..." を付けた要素は、main.js が document.querySelector("#...") で探して使う。
+-->
 <html lang="ja">
 <head>
   <meta charset="utf-8">
   <title>Redux カウンター</title>
+  <!-- 見た目の指定。Redux の仕組みとは関係ないので、読み飛ばしてよい -->
   <style>
     body { font-family: system-ui, sans-serif; margin: 0; padding: 32px 16px; background: #f5f7f9; color: #1b2230; }
     main { max-width: 880px; margin: 0 auto; display: grid; gap: 24px; grid-template-columns: 1fr 1.6fr; }
@@ -24,9 +30,12 @@
 </head>
 <body>
   <main>
+    <!-- 左側: カウンター本体。数字とボタン -->
     <section>
       <h2>VIEW 画面</h2>
+      <!-- 数字を表示する場所。中身を書き換えるのは main.js の render だけ -->
       <div id="count">0</div>
+      <!-- 各ボタンは押されると action を dispatch するだけ。main.js の一番下で登録している -->
       <div class="buttons">
         <button id="inc">+1</button>
         <button id="dec">-1</button>
@@ -35,11 +44,16 @@
       </div>
       <p class="note">ボタンは action を送るだけ。数字を描き直すのは store から知らせを受けた render です。</p>
     </section>
+    <!-- 右側: dispatch の記録欄。1回 dispatch するたびに main.js の send が1行足す -->
     <section>
       <h2>DISPATCH の記録　前の状態 → action → 次の状態</h2>
       <ol id="log"></ol>
     </section>
   </main>
+  <!--
+    main.js を読み込む。type="module" を付けると、ファイルの中で import と export が使える。
+    body の最後に置いているのは、上の部品がすべて作られてから main.js が探しに行けるようにするため。
+  -->
   <script type="module" src="src/main.js"></script>
 </body>
 </html>
