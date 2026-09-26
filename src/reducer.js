@@ -39,6 +39,10 @@ export function counterReducer(state = initialState, action) {
     //   state.count -= 1;
     //   return state;
     // 数は減るが、元の state を直接書き換えている。テストの1本がこれを見張っている。
+    case "counter/decrement":
+      return { ...state, count: state.count - 1 };
+    case "counter/reset":
+      return { count: 0 };
 
     default:
       // 知らない action が来たら、何もせず今の state をそのまま返す。
